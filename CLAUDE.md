@@ -9,7 +9,6 @@ Personal portfolio of AI agent systems, workflow automations, and orchestration 
 ## Repository Structure
 
 - `agents/` — AI agent implementations
-- `workflows/` — Workflow automation patterns
 - `orchestrator/` — Orchestration logic and frameworks
 - `docs/` — Project documentation
 
