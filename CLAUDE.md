@@ -15,5 +15,4 @@ Personal portfolio of AI agent systems, workflow automations, and orchestration 
 
 ## Notes
 
-- There is an untracked nested `ai-agent-systems/` subdirectory — this appears to be an accidental clone of the same repo and is not part of the project.
 - No build system, test runner, or language toolchain is configured yet. Add relevant commands here once a stack is chosen.
