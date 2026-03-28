@@ -4,19 +4,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Technical debt orchestration system — a multi-agent platform that scans codebases for debt, reviews code quality, and generates actionable refactoring recommendations. The project is in early development; no build tooling or language has been committed to yet.
+Kythron is a general-purpose multi-agent platform built natively on Claude Code. It provides a structured home for subagents, shared skills, commands, and orchestration logic. Agents are independent and can serve any domain.
 
 ## Repository Structure
 
-- `agents/codebase-improvements/` — Source of per-file improvement suggestions (tabular data, 3PP REST API, or internal analysis)
-- `agents/code-reviewer/` — Automated code review for style, security, and maintainability
-- `agents/solution-designer/` — Reads per-file improvements, consults CLAUDE.md for standards and architecture, and uses skills to implement the required code changes
-- `agents/git-agent/` — Handles git operations (branching, committing, opening PRs)
-- `skills/commit-message/` — Generates structured conventional commit messages from diffs
-- `skills/code-review/` — Performs inline code review, returns structured feedback
-- `orchestrator/` — Orchestration logic coordinating all agents and skills
-- `docs/` — Project documentation
+```
+kythron/
+├── CLAUDE.md                    ← you are here
+├── README.md
+└── .claude/
+    ├── settings.json
+    ├── agents/                  ← one .md file per agent
+    ├── skills/                  ← reusable capabilities agents invoke
+    ├── commands/                ← custom slash commands
+    ├── rules/                   ← platform-wide standards and constraints
+    ├── memory/                  ← persistent feedback loops per agent
+    ├── tests/                   ← functional correctness tests per agent
+    └── evals/                   ← quality measurement per agent
+```
+
+## Orchestration
+
+The `orchestrator` agent (`.claude/agents/orchestrator.md`) is the entry point. It routes tasks to subagents, manages multi-step workflows, and handles retries and fallbacks.
+
+## Adding a New Agent
+
+1. Create `.claude/agents/<agent-name>.md` with frontmatter (name, description, model, tools) and a system prompt
+2. Register the agent in `orchestrator.md` under Available Agents
+3. Add routing logic in `orchestrator.md`
+4. Create test cases in `.claude/tests/<agent-name>/`
+5. Add evals in `.claude/evals/<agent-name>/`
 
 ## Notes
 
-- No build system, test runner, or language toolchain is configured yet. Add relevant commands here once a stack is chosen.
+- No build system or language toolchain is configured yet. Add relevant commands here once a stack is chosen.
